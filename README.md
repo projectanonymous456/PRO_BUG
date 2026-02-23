@@ -1,141 +1,68 @@
+# PRO_BUG -- Prompt-Based Synthetic Augmentation
 
-# RAG – Retrieval-Augmented Generation Pipeline
+Minimal experimental pipeline for prompt-only synthetic data generation
+(PRO_BUG).\
+Configuration-driven and designed for reproducible experiments.
 
-This repository contains the full Retrieval-Augmented Generation (RAG) experimental pipeline
-with configuration-driven experiments.
+------------------------------------------------------------------------
 
-Repository structure:
+## 📁 Structure
 
-RAG/
-├── src/        # All source scripts
-├── configs/    # YAML experiment configurations
-├── data/       # Dataset (download from Zenodo)
-└── README.md
+    PRO_BUG/
+    ├── src/        # Core scripts
+    ├── configs/    # YAML experiment configs
+    ├── data/       # Download separately (Zenodo)
+    └── README.md
 
-Dataset is hosted on Zenodo and should be downloaded separately
-to avoid GitHub large file limits.
+------------------------------------------------------------------------
 
-------------------------------------------------------------
-🚀 QUICK START (RUN EVERYTHING STEP-BY-STEP)
-------------------------------------------------------------
+## 🚀 Quick Start
 
-1) Clone Repository
+### 1) Clone
 
-git clone https://github.com/projectanonymous456/RAG.git
-cd RAG
+    git clone https://github.com/projectanonymous456/PRO_BUG.git
+    cd PRO_BUG
 
+### 2) Install
 
-2) Create Virtual Environment
+    python -m venv .venv
+    .venv\Scripts\activate   # Windows
+    pip install -U pip
+    pip install torch transformers datasets pyyaml scikit-learn
 
-python -m venv .venv
+### 3) Generate Synthetic Data (M3)
 
-# Windows
-.venv\Scripts\activate
+    python src/05_generate_aug.py   --config configs/mozilla.yaml   --workdir workdir   --mode m3
 
-# macOS/Linux
-# source .venv/bin/activate
+### 4) Train & Evaluate
 
-pip install -U pip
-pip install -r requirements.txt
+    python src/06_train_eval.py   --config configs/mozilla.yaml   --workdir workdir   --mode m3
 
-If requirements.txt is not available:
+------------------------------------------------------------------------
 
-pip install torch transformers datasets faiss-cpu sentence-transformers pyyaml scikit-learn
+## 📊 Outputs
 
+Saved under:
 
-3) Download Dataset from Zenodo
+    workdir/outputs/<dataset>/
 
-Download dataset manually and place it in:
-
-data/raw/
-
-Expected structure:
-
-RAG/
-├── data/
-│   ├── raw/
-│   └── processed/
-├── src/
-├── configs/
-└── README.md
-
-
-------------------------------------------------------------
-🧪 FULL PIPELINE COMMANDS
-------------------------------------------------------------
-
-# 1. (Optional) Preprocess dataset
-python src/01_preprocess.py --config configs/mozilla.yaml
-
-# 2. Generate synthetic data (M2 - prompt only)
-python src/05_generate_aug.py     --config configs/mozilla.yaml     --workdir workdir     --mode m2
-
-# 3. Generate synthetic data (M3 - RAG based, K=5)
-python src/05_generate_aug.py     --config configs/mozilla.yaml     --workdir workdir     --mode m3     --k 5     --m3_st_device cpu
-
-# 4. Train & Evaluate Baseline (M1)
-python src/06_train_eval.py     --config configs/mozilla.yaml     --workdir workdir     --mode m1
-
-# 5. Train & Evaluate with M2
-python src/06_train_eval.py     --config configs/mozilla.yaml     --workdir workdir     --mode m2
-
-# 6. Train & Evaluate with M3
-python src/06_train_eval.py     --config configs/mozilla.yaml     --workdir workdir     --mode m3
-
-
-------------------------------------------------------------
-📊 OUTPUTS
-------------------------------------------------------------
-
-All outputs are saved under:
-
-workdir/outputs/<dataset>/
-
-Includes:
-- Synthetic JSONL files
-- Logs
-- Metrics JSON files
-- Summary results
+Includes: - Synthetic JSONL files\
+- Logs\
+- Metrics JSON
 
 Example:
 
-workdir/outputs/mozilla/metrics/m3_r10_k5_ALL.json
+    workdir/outputs/mozilla/metrics/m3_r10_ALL.json
 
+------------------------------------------------------------------------
 
-------------------------------------------------------------
-⚡ RUN SINGLE RATIO ONLY (OPTIONAL)
-------------------------------------------------------------
+## 📥 Dataset
 
-python src/05_generate_aug.py     --config configs/mozilla.yaml     --workdir workdir     --mode m3     --k 5     --ratios r10
+Dataset is hosted on Zenodo and must be downloaded separately to avoid
+GitHub size limits.
 
+------------------------------------------------------------------------
 
-------------------------------------------------------------
-🖥 GOOGLE COLAB VERSION
-------------------------------------------------------------
+## 📜 License
 
-from google.colab import drive
-drive.mount('/content/drive')
-
-!python /content/drive/MyDrive/RAG/src/05_generate_aug.py     --config /content/drive/MyDrive/RAG/configs/mozilla.yaml     --workdir /content/drive/MyDrive/RAG/workdir     --mode m3 --k 5
-
-
-------------------------------------------------------------
-🔧 TROUBLESHOOTING
-------------------------------------------------------------
-
-CUDA Out Of Memory:
-- Use --m3_st_device cpu
-- Or enable 4-bit quantization if supported.
-
-FAISS error:
-pip install faiss-cpu
-
-
-------------------------------------------------------------
-📜 CITATION
-------------------------------------------------------------
-
-If you use this code, please cite:
-- 📊 **Dataset (Zenodo):**  
-[https://zenodo.org/records/18737822](https://zenodo.org/records/18737822)
-- This GitHub repository
+For academic and research use.
