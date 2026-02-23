@@ -136,5 +136,6 @@ pip install faiss-cpu
 ------------------------------------------------------------
 
 If you use this code, please cite:
-- Zenodo Dataset DOI
+- 📊 **Dataset (Zenodo):**  
+[https://zenodo.org/records/18737822](https://zenodo.org/records/18737822)
 - This GitHub repository
