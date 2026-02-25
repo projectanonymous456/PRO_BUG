@@ -32,11 +32,11 @@ Configuration-driven and designed for reproducible experiments.
 
 ### 3) Generate Synthetic Data (M3)
 
-    python src/05_generate_aug.py   --config configs/mozilla.yaml   --workdir workdir   --mode m3
+    python src/05_generate_aug.py   --config configs/mozilla.yaml   --workdir workdir   --mode m2
 
 ### 4) Train & Evaluate
 
-    python src/06_train_eval.py   --config configs/mozilla.yaml   --workdir workdir   --mode m3
+    python src/06_train_eval.py   --config configs/mozilla.yaml   --workdir workdir   --mode m2
 
 ------------------------------------------------------------------------
 
@@ -52,7 +52,7 @@ Includes: - Synthetic JSONL files\
 
 Example:
 
-    workdir/outputs/mozilla/metrics/m3_r10_ALL.json
+    workdir/outputs/mozilla/metrics/m2_r10_ALL.json
 
 ------------------------------------------------------------------------
 
