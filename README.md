@@ -60,7 +60,7 @@ Example:
 
 Dataset is hosted on Zenodo and must be downloaded separately to avoid
 GitHub size limits.
-
+https://zenodo.org/records/18737822
 ------------------------------------------------------------------------
 
 ## 📜 License
