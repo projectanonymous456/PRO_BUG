@@ -56,10 +56,11 @@ Example:
 
 ------------------------------------------------------------------------
 
-## 📥 Dataset
+## 📦 Dataset Availability
 
-Dataset is hosted on Zenodo and must be downloaded separately to avoid
-GitHub size limits.
+The dataset used in this study is hosted externally on Zenodo due to GitHub file size limitations.
+
+🔗 Download Link:
 https://zenodo.org/records/18737822
 ------------------------------------------------------------------------
 
