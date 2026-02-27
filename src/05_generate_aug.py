@@ -2,38 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-FAST Synthetic Generation (M2 + M3) — MISTRAL-7B-INSTRUCT VERSION
-(FIXED 4-BIT LOADING + M3 OOM GUARDS + --ratios FILTER + M3 LABEL-LEAK FIX)
-
-What this script does
-- M2: prompt-only synthetic generation ("Assigned to <label>:")
-- M3: retrieval-augmented generation using FAISS + SentenceTransformer (label-leakage guarded)
-- Writes JSONL synthetic rows for each ratio (and each k in M3 ablation)
-- Writes to local tmp first, then copies to Drive path (Colab-friendly)
-
-Fixes included
-(M3 ONLY — M2 behavior unchanged)
-1) Prevent CUDA OOM in M3 by NOT loading a second huge model on GPU for embeddings.
-   - SentenceTransformer embedder device is controlled separately (default: CPU)
-   - New CLI args:
-       --m3_st_device cpu|cuda:0   (default: cpu)
-       --m3_emb_model <model>      (optional override; defaults to config retriever.emb_model)
-2) Safety guard:
-   - If emb_model looks like an LLM (e.g., mistralai/Mistral-7B-Instruct...), auto-fallback to BGE
-     because SentenceTransformer will try to wrap it and OOM on T4.
-     (Mistral is still used as the GENERATOR — which is what you want for M3 quality.)
-3) ST encode is not wrapped in CUDA autocast (works cleanly on CPU).
-
-Additional usability fix
-4) --ratios filter to run only selected ratios (e.g., r10 / r05,r10 / 0.10 / 10 / 10%)
-   - This fixes the earlier "unrecognized arguments: --ratios r10" issue.
-
-Leakage fix (M3 ONLY)
-5) Eliminate label leakage by:
-   - Retrieval query uses SUMMARY ONLY (never "<label> | <summary>")
-   - Prompt never contains the label (no "Assigned to <label>:")
-   - Retrieved snippets are sanitized (emails / assignee lines / label strings removed)
-   - Generated outputs are sanitized and any remaining leaking generations are DROPPED
+M1 - Base
+M2 - PRO_BUG
+M3 - RAG
 
 Notes
 - Assumes your workdir has:
