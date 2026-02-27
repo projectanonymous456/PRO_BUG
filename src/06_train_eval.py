@@ -6,7 +6,7 @@
 
 Modes:
 - m1: baseline (clean train split only, NO synthetic)
-- m2: GPT-2 synthetic (augmented/m2_rXX.jsonl)
+- m2: PRO_BUG (augmented/m2_rXX.jsonl)
 - m3: RAG synthetic (augmented/m3_rXX_kK.jsonl)
 
 Splits:
